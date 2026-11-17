@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>edex.type</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%2386efac'/%3E%3Cpath d='M11 13l8 7-8 7' fill='none' stroke='%2314532d' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M22 28h8' stroke='white' stroke-width='3.5' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&display=swap">
+<style>
+:root{--bg:#fff;--soft:#f0fdf4;--line:#d9f2e2;--g:#86efac;--g2:#4ade80;--gd:#15803d;--ink:#14301f;--mut:#9bb5a5;--err:#ef4444;--mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;min-height:100vh}
+.hidden{display:none!important}
+.wrap{max-width:900px;margin:0 auto;padding:20px}
+header{display:flex;align-items:center;justify-content:space-between;margin-bottom:36px}
+.brand{display:flex;align-items:center;gap:10px;font:800 24px var(--mono);letter-spacing:-1px}
+.brand b{color:var(--g2)}
+.me{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--gd)}
+button{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:10px 18px;background:var(--soft);color:var(--gd);transition:.15s}
+button:hover:not(:disabled){background:var(--g)}
+button:disabled{opacity:.45;cursor:not-allowed}
+button:focus-visible,input:focus-visible{outline:3px solid var(--g2);outline-offset:2px}
+.primary{background:var(--g);color:#0b3d1e;font-weight:700;padding:13px 28px}
+.primary:hover:not(:disabled){background:var(--g2)}
+.card{max-width:380px;margin:8vh auto 0;padding:28px;border:2px solid var(--line);border-radius:18px}
+.card h1{font:800 22px var(--mono);margin:14px 0 18px}
+input{width:100%;font:inherit;padding:12px 14px;border:2px solid var(--line);border-radius:10px;margin-bottom:12px;background:#fff;color:var(--ink)}
+.tabs{display:flex;gap:6px;margin-bottom:16px}.tabs button{flex:1}.tabs .on{background:var(--g);font-weight:700}
+.err{color:var(--err);min-height:22px;font-size:14px;margin:0 0 8px}
+.opt{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.opt>span{width:110px;color:var(--mut)}
+.chip{padding:8px 16px;background:transparent;color:var(--mut);font-family:var(--mono)}
+.chip.on{background:var(--soft);color:var(--gd);font-weight:800}
+.opt input{max-width:220px;margin:0}
+.hint{color:var(--mut);font-size:14px;margin:18px 0 26px;max-width:60ch}
+.stats{color:var(--mut);font-size:14px;margin-top:28px}
+/* lobby */
+.slots{display:flex;gap:12px;flex-wrap:wrap;margin:22px 0}
+.slot{min-width:140px;padding:16px;border:2px dashed var(--line);border-radius:14px;color:var(--mut);text-align:center;font-family:var(--mono)}
+.slot.on{border:2px solid var(--g);background:var(--soft);color:var(--ink);font-weight:800}
+.slot small{display:block;font-weight:400;color:var(--gd)}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+h2{font:800 26px var(--mono);margin:0}
+/* game */
+.top{display:flex;justify-content:space-between;align-items:center;font:800 28px var(--mono);color:var(--gd);margin-bottom:14px}
+.top small{font:400 14px system-ui;color:var(--mut)}
+.bars{margin-bottom:18px}
+.bar{display:grid;grid-template-columns:110px 1fr 70px;gap:10px;align-items:center;font:14px var(--mono);margin:4px 0}
+.bar i{display:block;height:10px;border-radius:6px;background:var(--soft);overflow:hidden}
+.bar i b{display:block;height:100%;width:0;background:var(--g);transition:width .25s}
+.bar.me i b{background:var(--g2)}.bar.me{font-weight:800}
+#view{height:132px;overflow:hidden;font:400 26px/44px var(--mono);cursor:text;position:relative;user-select:none}
+#txt{position:relative;transition:transform .12s}
+.w{display:inline-block;white-space:pre}
+.c{color:var(--mut)}.c.ok{color:var(--ink)}.c.bad{color:var(--err)}.c.sp.bad{background:#fecaca}
+.c.cur{position:relative}
+.c.cur:before{content:'';position:absolute;left:-1px;top:7px;bottom:7px;width:3px;border-radius:2px;background:var(--g2);animation:bl 1s steps(1) infinite}
+@keyframes bl{50%{opacity:0}}
+#ip{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px}
+#ov{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#fffd;font:800 140px var(--mono);color:var(--g2);z-index:5}
+.focusmsg{color:var(--mut);font-size:14px;margin-top:16px}
+/* result */
+.big{font:800 72px var(--mono);color:var(--g2);line-height:1}
+table{border-collapse:collapse;width:100%;margin:22px 0;font-family:var(--mono)}
+td,th{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}th{color:var(--mut);font-weight:400}
+tr.me td{background:var(--soft);font-weight:800}
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:10px}
+@media(max-width:560px){#view{font-size:20px;line-height:36px;height:108px}.opt>span{width:100%}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><symbol id="logo" viewBox="0 0 40 40"><rect width="40" height="40" rx="10" fill="#86efac"/><path d="M11 13l8 7-8 7" fill="none" stroke="#14532d" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 28h8" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/></symbol></svg>
+
+<!-- AUTH -->
+<section id="auth" class="hidden"><div class="card">
+  <div class="brand"><svg width="40" height="40"><use href="#logo"/></svg>edex<b>.type</b></div>
+  <h1>Hisobga kiring</h1>
+  <div class="tabs"><button id="tl" class="on">Kirish</button><button id="tr">Roʻyxatdan oʻtish</button></div>
+  <input id="u" placeholder="Login" autocomplete="username" maxlength="16" autocapitalize="off">
+  <input id="pw" type="password" placeholder="Parol (kamida 6 belgi)" autocomplete="current-password">
+  <p class="err" id="aerr"></p>
+  <button class="primary" id="go" style="width:100%">Kirish</button>
+</div></section>
+
+<!-- HOME -->
+<section id="home" class="hidden"><div class="wrap">
+  <header><div class="brand"><svg width="40" height="40"><use href="#logo"/></svg>edex<b>.type</b></div>
+    <div class="me"><span id="me"></span><button id="out">Chiqish</button></div></header>
+  <div class="opt"><span>Oʻyinchilar</span><div id="csz" class="row"></div></div>
+  <div class="opt"><span>Rejim</span><div id="cmo" class="row"></div></div>
+  <div class="opt"><span id="vl">Vaqt</span><div id="cva" class="row"></div></div>
+  <div class="opt"><span>Xona kodi</span><input id="code" placeholder="ixtiyoriy, doʻst bilan" maxlength="12"></div>
+  <p class="hint">1 kishi — yakka mashq. 2, 3 yoki 5 kishi — raqiblar kutiladi; hamma “Tayyorman” bosganda poyga boshlanadi. Doʻstingiz bilan oʻynash uchun ikkalangiz ham bir xil xona kodini kiriting.</p>
+  <button class="primary" id="play">Oʻynash</button>
+  <div class="stats" id="stats"></div>
+</div></section>
+
+<!-- LOBBY -->
+<section id="lobby" class="hidden"><div class="wrap">
+  <header><div class="brand"><svg width="40" height="40"><use href="#logo"/></svg>edex<b>.type</b></div></header>
+  <h2 id="lt"></h2><p class="hint" id="li"></p>
+  <div class="slots" id="slots"></div>
+  <div class="row"><button class="primary" id="rdy">Tayyorman</button><button id="lv">Chiqish</button></div>
+</div></section>
+
+<!-- GAME -->
+<section id="game" class="hidden"><div class="wrap">
+  <header><div class="brand"><svg width="40" height="40"><use href="#logo"/></svg>edex<b>.type</b></div><button id="quit">Chiqish</button></header>
+  <div class="top"><span id="tm"></span><small id="live"></small></div>
+  <div class="bars" id="bars"></div>
+  <div id="view"><div id="txt"></div></div>
+  <textarea id="ip" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false"></textarea>
+  <p class="focusmsg" id="fm">Yozishni boshlash uchun matn ustiga bosing</p>
+  <div id="ov" class="hidden"></div>
+</div></section>
+
+<!-- RESULT -->
+<section id="result" class="hidden"><div class="wrap">
+  <header><div class="brand"><svg width="40" height="40"><use href="#logo"/></svg>edex<b>.type</b></div></header>
+  <div class="big"><span id="rw"></span><small style="font-size:22px"> wpm</small></div>
+  <p class="hint" id="ra"></p>
+  <table id="rt"></table>
+  <div class="row"><button class="primary" id="again">Yana oʻynash</button><button id="hm">Bosh sahifa</button></div>
+</div></section>
+
+<div id="toast" class="hidden"></div>
+
+<script>
+const $ = s => document.querySelector(s);
+const SZ = [1, 2, 3, 5], OPT = { time: [15, 30, 60], words: [10, 25, 50] };
+let ws, user, token = localStorage.getItem('et_token'), cfg = { size: 2, mode: 'time', val: 30 };
+let authMode = 'login', text = '', typed = '', keys = 0, wrong = 0, over = true, t0 = 0, iv, spans = [], mode = 'time', val = 30, lobbyCode = '';
+
+const show = id => { document.querySelectorAll('section').forEach(s => s.classList.toggle('hidden', s.id !== id)); };
+const toast = m => { const t = $('#toast'); t.textContent = m; t.classList.remove('hidden'); setTimeout(() => t.classList.add('hidden'), 2500); };
+const send = o => ws && ws.readyState === 1 && ws.send(JSON.stringify(o));
+
+/* ---- auth ---- */
+function setTab(m) { authMode = m; $('#tl').classList.toggle('on', m === 'login'); $('#tr').classList.toggle('on', m === 'register'); $('#go').textContent = m === 'login' ? 'Kirish' : 'Roʻyxatdan oʻtish'; $('#aerr').textContent = ''; }
+$('#tl').onclick = () => setTab('login'); $('#tr').onclick = () => setTab('register');
+async function doAuth() {
+  $('#aerr').textContent = '';
+  try {
+    const r = await fetch('/api/auth', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mode: authMode, name: $('#u').value, pass: $('#pw').value }) });
+    const d = await r.json();
+    if (!r.ok) return $('#aerr').textContent = d.error;
+    token = d.token; localStorage.setItem('et_token', token); connect();
+  } catch { $('#aerr').textContent = 'Serverga ulanib boʻlmadi'; }
+}
+$('#go').onclick = doAuth; $('#pw').onkeydown = e => e.key === 'Enter' && doAuth();
+$('#out').onclick = () => { token = null; localStorage.removeItem('et_token'); ws && ws.close(); show('auth'); };
+
+/* ---- socket ---- */
+function connect() {
+  ws = new WebSocket((location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/?token=' + token);
+  ws.onmessage = e => on(JSON.parse(e.data));
+  ws.onclose = ev => {
+    if (!token) return;
+    if (ev.code === 4001 || ev.code === 4002) { token = null; localStorage.removeItem('et_token'); show('auth'); $('#aerr').textContent = ev.code === 4002 ? 'Hisobga boshqa oynadan kirilgan' : ''; return; }
+    toast('Aloqa uzildi, qayta ulanmoqda…'); over = true; clearInterval(iv); setTimeout(connect, 1500);
+  };
+}
+function on(m) {
+  if (m.t === 'hi') { user = m.user; renderHome(); show('home'); }
+  else if (m.t === 'lobby') renderLobby(m);
+  else if (m.t === 'count') { show('game'); prepare(); $('#ov').textContent = m.n; $('#ov').classList.remove('hidden'); }
+  else if (m.t === 'go') startGame(m);
+  else if (m.t === 'prog') bars(m.players);
+  else if (m.t === 'result') showResult(m);
+}
+
+/* ---- home ---- */
+function chips(el, arr, cur, fn, fmt) {
+  el.innerHTML = '';
+  arr.forEach(v => { const b = document.createElement('button'); b.className = 'chip' + (v === cur ? ' on' : ''); b.textContent = fmt(v); b.onclick = () => { fn(v); renderHome(); }; el.append(b); });
+}
+function renderHome() {
+  $('#me').textContent = user.name;
+  chips($('#csz'), SZ, cfg.size, v => cfg.size = v, v => v + ' kishi');
+  chips($('#cmo'), ['time', 'words'], cfg.mode, v => { cfg.mode = v; cfg.val = OPT[v][1]; }, v => v === 'time' ? 'vaqt' : 'soʻz');
+  chips($('#cva'), OPT[cfg.mode], cfg.val, v => cfg.val = v, v => cfg.mode === 'time' ? v + ' s' : v);
+  $('#vl').textContent = cfg.mode === 'time' ? 'Vaqt' : 'Soʻzlar soni';
+  $('#stats').textContent = `${user.games} ta oʻyin, ${user.wins} ta gʻalaba. Shu rejimdagi rekord: ${user.best[cfg.mode + cfg.val] || 0} wpm`;
+}
+const joinRoom = () => send({ t: 'join', ...cfg, code: $('#code').value });
+$('#play').onclick = joinRoom;
+$('#again').onclick = joinRoom;
+$('#hm').onclick = () => { renderHome(); show('home'); };
+
+/* ---- lobby ---- */
+function renderLobby(m) {
+  show('lobby');
+  const n = m.players.length, me = m.players.find(p => p.name === user.name);
+  $('#lt').textContent = n < 2 ? `Raqib kutilmoqda… ${n}/${m.size}` : n < m.size ? `${n}/${m.size} oʻyinchi. Yana kutish yoki boshlash mumkin` : `Hamma yigʻildi. Tayyorman tugmasini bosing`;
+  $('#li').textContent = (m.mode === 'time' ? m.val + ' soniya' : m.val + ' ta soʻz') + (m.code ? ` · xona kodi: ${m.code}` : '');
+  $('#slots').innerHTML = Array.from({ length: m.size }, (_, i) => { const p = m.players[i]; return p ? `<div class="slot on">${p.name}<small>${p.ready ? 'tayyor' : 'kutmoqda'}</small></div>` : `<div class="slot">boʻsh oʻrin</div>`; }).join('');
+  $('#rdy').disabled = n < 2;
+  $('#rdy').textContent = me && me.ready ? 'Bekor qilish' : 'Tayyorman';
+}
+$('#rdy').onclick = () => send({ t: 'ready' });
+$('#lv').onclick = $('#quit').onclick = () => { send({ t: 'leave' }); over = true; clearInterval(iv); renderHome(); show('home'); };
+
+/* ---- game ---- */
+function prepare() {
+  over = true; clearInterval(iv); typed = ''; $('#txt').innerHTML = ''; $('#bars').innerHTML = ''; $('#tm').textContent = ''; $('#live').textContent = ''; $('#ip').value = '';
+}
+function startGame(m) {
+  text = m.text; mode = m.mode; val = m.val; typed = ''; keys = 0; wrong = 0; over = false;
+  $('#ov').classList.add('hidden');
+  $('#txt').innerHTML = text.split(' ').map((w, i, a) => '<span class="w">' + [...w].map(ch => `<span class="c">${ch}</span>`).join('') + (i < a.length - 1 ? '<span class="c sp"> </span>' : '') + '</span>').join('');
+  spans = [...$('#txt').querySelectorAll('.c')];
+  $('#ip').value = ''; $('#ip').focus(); $('#fm').textContent = ''; paint();
+  t0 = performance.now(); clearInterval(iv); iv = setInterval(tick, 100); tick();
+}
+function correct() { let c = 0; for (let i = 0; i < typed.length; i++) if (typed[i] === text[i]) c++; return c; }
+function tick() {
+  const el = (performance.now() - t0) / 1000;
+  if (mode === 'time') {
+    const left = Math.max(0, val - el); $('#tm').textContent = Math.ceil(left);
+    if (left <= 0 && !over) { over = true; $('#ip').blur(); $('#live').textContent = 'Vaqt tugadi…'; }
+  } else $('#tm').textContent = typed.split(' ').length - (typed.endsWith(' ') ? 0 : 1) + ' / ' + val;
+  if (!over && el > 1) $('#live').textContent = Math.round(correct() / 5 / (el / 60)) + ' wpm';
+}
+function paint() {
+  spans.forEach((s, i) => { s.className = 'c' + (text[i] === ' ' ? ' sp' : '') + (i < typed.length ? (typed[i] === text[i] ? ' ok' : ' bad') : '') + (i === typed.length ? ' cur' : ''); });
+  const cur = spans[Math.min(typed.length, spans.length - 1)];
+  $('#txt').style.transform = `translateY(${-Math.max(0, cur.offsetTop - 44)}px)`;
+}
+const ip = $('#ip');
+ip.oninput = () => {
+  if (over) { ip.value = typed; return; }
+  let v = ip.value.slice(0, text.length);
+  for (let i = typed.length; i < v.length; i++) { keys++; if (v[i] !== text[i]) wrong++; }
+  typed = ip.value = v; paint();
+  const fin = mode === 'words' && typed.length >= text.length;
+  send({ t: 'p', c: correct(), k: keys, w: wrong, fin });
+  if (fin) { over = true; ip.blur(); $('#live').textContent = 'Tugadi! Boshqalarni kuting…'; }
+};
+ip.onpaste = e => e.preventDefault();
+$('#view').onclick = () => { if (!over) ip.focus(); };
+document.addEventListener('keydown', e => { if (!$('#game').classList.contains('hidden') && !over && document.activeElement !== ip && e.key.length === 1) ip.focus(); });
+
+function bars(list) {
+  if (list.length < 2) return;
+  const target = mode === 'words' ? text.length : val * 10;
+  $('#bars').innerHTML = list.map(p => `<div class="bar${p.name === user.name ? ' me' : ''}"><span>${p.name}</span><i><b style="width:${Math.min(100, 100 * p.c / target)}%"></b></i><span>${p.wpm} wpm</span></div>`).join('');
+}
+
+/* ---- result ---- */
+function showResult(m) {
+  over = true; clearInterval(iv);
+  const mine = m.ranking.find(r => r.name === user.name);
+  if (mine) { user.games++; const k = m.mode + m.val; if (mine.wpm > (user.best[k] || 0)) user.best[k] = mine.wpm; if (m.ranking.length > 1 && m.ranking[0].name === user.name) user.wins++; }
+  $('#rw').textContent = mine ? mine.wpm : 0;
+  $('#ra').textContent = mine ? `Aniqlik: ${mine.acc}%` + (m.ranking.length > 1 ? ` · oʻrningiz: ${m.ranking.indexOf(mine) + 1}/${m.ranking.length}` : '') : '';
+  $('#rt').innerHTML = '<tr><th>#</th><th>Oʻyinchi</th><th>wpm</th><th>Aniqlik</th></tr>' + m.ranking.map((r, i) => `<tr class="${r.name === user.name ? 'me' : ''}"><td>${i + 1}</td><td>${r.name}</td><td>${r.wpm}</td><td>${r.acc}%</td></tr>`).join('');
+  show('result');
+}
+
+/* ---- start ---- */
+setTab('login');
+if (token) connect(); else show('auth');
+</script>
+</body>
+</html>
